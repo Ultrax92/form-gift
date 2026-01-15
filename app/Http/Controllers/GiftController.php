@@ -41,7 +41,7 @@ class GiftController extends Controller
     }
 
     // 6. Mettre à jour le cadeau
-    public function update(Request $request, Gift $gift)
+    public function update(GiftRequest $request, Gift $gift)
     {
         $gift->update($request->validated());
         return redirect()->route('gifts.index');
