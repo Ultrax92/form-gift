@@ -20,17 +20,17 @@ class GiftController extends Controller
         return view('gifts.create');
     }
 
-    // 3. Enregistrer le cadeau (Validation + Stockage)
+    // 3. Enregistrer le cadeau
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3|max:50',
-            'url' => 'nullable|url|starts_with:http,https',
+        $validated = $request->validate([
+            'name'    => 'required|string|min:3|max:50',
+            'url'     => 'nullable|url|regex:/^https?:\/\//', 
             'details' => 'nullable|string',
-            'price' => 'required|numeric|min:0|decimal:0,2',
+            'price'   => 'required|numeric|min:0|decimal:0,2',
         ]);
 
-        Gift::create($request->all());
+        Gift::create($validated);
 
         return redirect()->route('gifts.index');
     }
@@ -50,14 +50,14 @@ class GiftController extends Controller
     // 6. Mettre à jour le cadeau
     public function update(Request $request, Gift $gift)
     {
-        $request->validate([
-            'name' => 'required|string|min:3|max:50',
-            'url' => 'nullable|url|starts_with:http,https',
+        $validated = $request->validate([
+            'name'    => 'required|string|min:3|max:50',
+            'url'     => 'nullable|url|regex:/^https?:\/\//',
             'details' => 'nullable|string',
-            'price' => 'required|numeric|min:0|decimal:0,2',
+            'price'   => 'required|numeric|min:0|decimal:0,2',
         ]);
 
-        $gift->update($request->all());
+        $gift->update($validated);
 
         return redirect()->route('gifts.index');
     }
