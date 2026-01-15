@@ -27,7 +27,7 @@
         <label>Prix :</label><br>
         <input type="number" step="0.01" name="price" value="{{ old('price') }}"><br><br>
 
-        <label>URL (http/https) :</label><br>
+        <label>URL :</label><br>
         <input type="text" name="url" value="{{ old('url') }}"><br><br>
 
         <label>Détails :</label><br>
