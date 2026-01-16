@@ -25,10 +25,11 @@ class GiftController extends Controller
     public function store(GiftRequest $request)
     {
         $gift = Gift::create($request->validated());
+
         $messageContent = "Le cadeau {$gift->name} a bien été ajouté ({$gift->price}€)";
 
         Mail::raw($messageContent, function ($message) {
-            $message->to('admin@boutique.com') // Adresse fictive de l'admin
+            $message->to('kiwiihs@gmail.com')
                 ->subject('Nouveau cadeau ajouté !');
         });
 
