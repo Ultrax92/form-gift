@@ -30,8 +30,8 @@ class GiftCreated extends Mailable
         return new Content(
             view: 'emails.gift_created',
             with: [
-                'nomCadeau' => $this->gift->name,
-                'prixCadeau' => $this->gift->price,
+                'name' => $this->gift->name,
+                'price' => $this->gift->price,
             ],
         );
     }
@@ -40,7 +40,7 @@ class GiftCreated extends Mailable
     {
         return [
             Attachment::fromPath(public_path('cadeau.jpg'))
-                ->as('image-cadeau.jpg')
+                ->as('gift.jpg')
                 ->withMime('image/jpeg'),
         ];
     }
