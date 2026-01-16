@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gift;
-use Illuminate\Http\Request;
 use App\Http\Requests\GiftRequest;
+use Illuminate\Support\Facades\Mail;
 
 class GiftController extends Controller
 {
@@ -24,7 +24,14 @@ class GiftController extends Controller
     // 3. Enregistrer le cadeau
     public function store(GiftRequest $request)
     {
-        Gift::create($request->validated());
+        $gift = Gift::create($request->validated());
+        $messageContent = "Le cadeau {$gift->name} a bien été ajouté ({$gift->price}€)";
+
+        Mail::raw($messageContent, function ($message) {
+            $message->to('admin@boutique.com') // Adresse fictive de l'admin
+                ->subject('Nouveau cadeau ajouté !');
+        });
+
         return redirect()->route('gifts.index');
     }
 
